@@ -45,11 +45,11 @@ jobs:
         run: |
           haxelib --quiet install lime 7.9.0
           haxelib --quiet install openfl 9.1.0
-          haxelib --quiet install flixel
+          haxelib --quiet install flixel 5.2.2
           haxelib --quiet --never run lime setup
           haxelib --quiet install hscript
-          haxelib --quiet install flixel-ui
-          haxelib --quiet install flixel-addons
+          haxelib --quiet install flixel-ui 
+          haxelib --quiet install flixel-addons 2.11.0
           haxelib --quiet install flxanimate 1.2.0
           haxelib --quiet install hxp
           haxelib git linc_luajit https://github.com/sirox228/linc_luajit --quiet
@@ -65,6 +65,8 @@ jobs:
           haxelib run lime config ANDROID_SETUP true
           haxelib set lime 7.9.0
           haxelib set openfl 9.1.0
+          haxelib set flixel 5.2.2
+          haxelib set flixel-addons 2.11.0
           haxelib set flxanimate 1.2.0
           haxelib list
         env:
