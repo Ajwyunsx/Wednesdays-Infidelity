@@ -123,7 +123,7 @@ class CutsceneState extends MusicBeatState // PlayState is alreadly laggy enough
 		{
 			var video = new VideoHandler();
 			video.canSkip = skippable;
-			video.playVideo(fileName, false, true, true);
+			video.playVideo(fileName, false, true);
 
 			video.finishCallback = function()
 			{
