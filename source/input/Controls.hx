@@ -3,7 +3,8 @@ package input;
 import flixel.group.FlxGroup;
 import ui.Hitbox;
 import ui.FlxVirtualPad;
-import ui.flixel.FlxButton;
+import ui.flixel.FlxButton as FlxNewButton;
+import flixel.ui.FlxButton;
 import data.ClientPrefs;
 import flixel.FlxG;
 import flixel.input.FlxInput;
@@ -394,12 +395,20 @@ class Controls extends FlxActionSet
 		//action.addInput(button, state);
 	}
 	
+	public function addButton(action:FlxActionDigital, button:FlxNewButton, state:FlxInputState) {
+		var input = new FlxActionInputDigitalIFlxInput(button, state);
+		trackedinputs.push(input);
+		
+		action.add(input);
+		//action.addInput(button, state);
+	}
+	
 	public function setHitBox(hitbox:Hitbox) 
 	{
-		inline forEachBound(Control.NOTE_UP, (action, state) -> addbutton(action, hitbox.buttonUp, state));
-		inline forEachBound(Control.NOTE_DOWN, (action, state) -> addbutton(action, hitbox.buttonDown, state));
-		inline forEachBound(Control.NOTE_LEFT, (action, state) -> addbutton(action, hitbox.buttonLeft, state));
-		inline forEachBound(Control.NOTE_RIGHT, (action, state) -> addbutton(action, hitbox.buttonRight, state));	
+		inline forEachBound(Control.NOTE_UP, (action, state) -> addButton(action, hitbox.buttonUp, state));
+		inline forEachBound(Control.NOTE_DOWN, (action, state) -> addButton(action, hitbox.buttonDown, state));
+		inline forEachBound(Control.NOTE_LEFT, (action, state) -> addButton(action, hitbox.buttonLeft, state));
+		inline forEachBound(Control.NOTE_RIGHT, (action, state) -> addButton(action, hitbox.buttonRight, state));	
 	}
 
 	
