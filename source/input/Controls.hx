@@ -3,7 +3,7 @@ package input;
 import flixel.group.FlxGroup;
 import ui.Hitbox;
 import ui.FlxVirtualPad;
-import flixel.ui.FlxButton;
+import ui.flixel.FlxButton;
 import data.ClientPrefs;
 import flixel.FlxG;
 import flixel.input.FlxInput;
