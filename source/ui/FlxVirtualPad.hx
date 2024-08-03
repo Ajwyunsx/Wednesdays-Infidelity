@@ -6,7 +6,7 @@ import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxPoint;
 import flixel.system.FlxAssets;
 import flixel.util.FlxDestroyUtil;
-import ui.flixel.FlxButton;
+import flixel.ui.FlxButton;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flash.display.BitmapData;
 import flixel.graphics.FlxGraphic;
