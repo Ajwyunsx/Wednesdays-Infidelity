@@ -9,7 +9,7 @@ import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxPoint;
 import flixel.system.FlxAssets;
 import flixel.util.FlxDestroyUtil;
-import flixel.ui.FlxButton;
+import ui.flixel.FlxButton;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.graphics.frames.FlxFrame;
 import flixel.ui.FlxVirtualPad;
@@ -19,8 +19,7 @@ import openfl.display.Shape;
 import openfl.display.BitmapData;
 import flixel.util.FlxColor;
 
-// copyed from flxvirtualpad
-class Hitbox extends FlxSpriteGroup
+class FlxNewHitbox extends FlxSpriteGroup
 {
     public var hitbox:FlxSpriteGroup;
 
@@ -32,9 +31,9 @@ class Hitbox extends FlxSpriteGroup
     public var buttonDown:FlxButton;
     public var buttonUp:FlxButton;
     public var buttonRight:FlxButton;
-    public var buttonDodge:FlxButton;
+    public var buttonSpace:FlxButton;
     
-    public function new(mode:Modes)
+    public function new()
     {
         super();
 
@@ -47,8 +46,8 @@ class Hitbox extends FlxSpriteGroup
         //add graphic
         hitbox = new FlxSpriteGroup();
         hitbox.scrollFactor.set();
-        switch (mode) {
-        	case DEFAULT:
+        	switch (mode) {
+            case DEFAULT:
                 hitbox.add(add(buttonLeft = createhitbox(0, 0xFF00FF)));
                 hitbox.add(add(buttonDown = createhitbox(Std.int(FlxG.width / 4), 0x00FFFF)));
                 hitbox.add(add(buttonUp = createhitbox(Std.int(FlxG.width / 4) * 2, 0x00FF00)));
@@ -66,8 +65,6 @@ class Hitbox extends FlxSpriteGroup
 	{
 		var shape:Shape = new Shape();
 
-		if (FlxG.save.data.gradientHitboxes)
-		{
 			shape.graphics.beginFill(Color);
 			shape.graphics.lineStyle(3, Color, 1);
 			shape.graphics.drawRect(0, 0, Width, Height);
@@ -77,14 +74,6 @@ class Hitbox extends FlxSpriteGroup
 			shape.graphics.beginGradientFill(RADIAL, [Color, FlxColor.TRANSPARENT], [0.6, 0], [0, 255], null, null, null, 0.5);
 			shape.graphics.drawRect(3, 3, Width - 6, Height - 6);
 			shape.graphics.endFill();
-		}
-		else
-		{
-			shape.graphics.beginFill(Color);
-			shape.graphics.lineStyle(10, Color, 1);
-			shape.graphics.drawRect(0, 0, Width, Height);
-			shape.graphics.endFill();
-		}
 
 		var bitmap:BitmapData = new BitmapData(Width, Height, true, 0);
 		bitmap.draw(shape);
@@ -100,22 +89,19 @@ class Hitbox extends FlxSpriteGroup
         	height = FlxG.height;
         }
         button.loadGraphic(createHintGraphic(Std.int(width), Std.int(height), color));
-
+        button.scrollFactor.set();
         button.alpha = 0;
-
-    
-        button.onDown.callback = function (){
-            FlxTween.num(0, FlxG.save.data.hitboxOpacity, .075, {ease: FlxEase.circInOut}, function (a:Float) { button.alpha = a; });
-        };
-
-        button.onUp.callback = function (){
-            FlxTween.num(FlxG.save.data.hitboxOpacity, 0, .1, {ease: FlxEase.circInOut}, function (a:Float) { button.alpha = a; });
-        }
         
-        button.onOut.callback = function (){
-            FlxTween.num(button.alpha, 0, .2, {ease: FlxEase.circInOut}, function (a:Float) { button.alpha = a; });
-        }
-
+        button.onDown.callback = button.onOver.callback = function()
+		{
+			if (button.alpha != ClientPrefs.hitboxalpha)
+				button.alpha = ClientPrefs.hitboxalpha;
+		}
+		button.onUp.callback = button.onOut.callback = function()
+		{
+			if (button.alpha != 0.00001)
+				button.alpha = 0.00001;
+		}
         return button;
     }
 
@@ -129,7 +115,6 @@ class Hitbox extends FlxSpriteGroup
             buttonRight = null;
         }
 }
-
 enum Modes {
 	DEFAULT;
 	DODGE;
