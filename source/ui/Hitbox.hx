@@ -33,7 +33,7 @@ class Hitbox extends FlxSpriteGroup
     public var buttonRight:FlxButton;
     public var buttonSpace:FlxButton;
     
-    public function new()
+    public function new(mode:Modes)
     {
         super();
 
@@ -94,8 +94,8 @@ class Hitbox extends FlxSpriteGroup
         
         button.onDown.callback = button.onOver.callback = function()
 		{
-			if (button.alpha != ClientPrefs.hitboxalpha)
-				button.alpha = ClientPrefs.hitboxalpha;
+			if (button.alpha != FlxG.save.data.hitboxOpacity)
+				button.alpha = FlxG.save.data.hitboxOpacity;
 		}
 		button.onUp.callback = button.onOut.callback = function()
 		{
