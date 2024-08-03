@@ -6,9 +6,9 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches: [ master ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -54,7 +54,7 @@ jobs:
           haxelib --quiet install hxp
           haxelib git linc_luajit https://github.com/sirox228/linc_luajit --quiet
           haxelib git hxCodec https://github.com/FNF-Pk-Dev/hxCodec.git --quiet
-          haxelib git extension-androidtools https://github.com/Default-name123/oldtools --quiet
+          haxelib git extension-androidtools https://github.com/MAJigsaw77/extension-androidtools 81973b20f25ada983ee1feed1f8a4db2e5416c17 --quiet
           haxelib list
       - name: Setup Lime
         run: |
