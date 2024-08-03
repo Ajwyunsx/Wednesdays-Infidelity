@@ -1,10 +1,11 @@
-package;
+package; // by sirox
 
 import sys.FileSystem;
 #if android
-import android.Hardware;
+//import android.Hardware;
 import android.Permissions;
 import android.os.Environment;
+import android.widget.Toast;
 #end
 import flash.system.System;
 import flixel.FlxG;
@@ -97,7 +98,6 @@ class Generic {
 			try
 			{
 				var lmao:String = returnPath();
-				if (!lmao.contains(lime.system.System.applicationStorageDirectory)) {
 					if (!FileSystem.exists(lmao + 'logs')) {
 						FileSystem.createDirectory(lmao + 'logs');
 					}
@@ -109,11 +109,10 @@ class Generic {
 					+ '.log',
 					errMsg
 					+ '\n');
-				}
 			}
 			#if android
 			catch (e:Dynamic)
-			Hardware.toast("Error!\nClouldn't save the crash dump because:\n" + e, ToastType.LENGTH_LONG);
+			Toast.makeText("Error!\nClouldn't save the crash dump because:\n" + e, Toast.LENGTH_LONG);
 			#end
 
 			Sys.println(errMsg);
@@ -196,9 +195,11 @@ class PermsState extends FlxState {
 		text.y -= FlxG.height / 4;
 		text.alignment = CENTER;
 		add(text);
+		#if android
 		permsbutton = new FlxUIButton(0,0,"Ask Permissions", () -> {
             Permissions.requestPermissions([Permissions.WRITE_EXTERNAL_STORAGE, Permissions.READ_EXTERNAL_STORAGE]);
         });
+       #end
         permsbutton.screenCenter(XY);
         permsbutton.x -= 400;
         permsbutton.y += 100;
@@ -209,7 +210,7 @@ class PermsState extends FlxState {
 			if (callback != null) {
 				callback();
 			}
-        	FlxG.switchState(Type.createInstance(Main.initialState, []));
+        	//FlxG.switchState(Type.createInstance(Main.initialState, []));
         });
         continuebutton.screenCenter(XY);
         continuebutton.x += 300;
