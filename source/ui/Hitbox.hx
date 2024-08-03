@@ -31,7 +31,7 @@ class Hitbox extends FlxSpriteGroup
     public var buttonDown:FlxButton;
     public var buttonUp:FlxButton;
     public var buttonRight:FlxButton;
-    public var buttonSpace:FlxButton;
+    public var buttonDodge:FlxButton;
     
     public function new(mode:Modes)
     {
