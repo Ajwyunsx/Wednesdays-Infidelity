@@ -19,7 +19,7 @@ import openfl.display.Shape;
 import openfl.display.BitmapData;
 import flixel.util.FlxColor;
 
-class FlxNewHitbox extends FlxSpriteGroup
+class Hitbox extends FlxSpriteGroup
 {
     public var hitbox:FlxSpriteGroup;
 
